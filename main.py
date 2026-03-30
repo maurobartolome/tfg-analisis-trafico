@@ -41,3 +41,11 @@ for tiempo in sorted(resultados.keys()):
         inicio = calle[0]
         fin = calle[1]
         print(f"  Calle {inicio} → {fin}: {num_coches} coches")
+
+# Versión fija
+from riv_config_fijo import calcular_riv_simulacion
+riv_simulacion = calcular_riv_simulacion(resultados, N_BWP=222, rbs_por_coche=24)
+
+# Versión variable
+from riv_config_variable import calcular_riv_simulacion
+riv_simulacion = calcular_riv_simulacion(resultados, N_BWP=222)
