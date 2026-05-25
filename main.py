@@ -1,10 +1,15 @@
 import json
 from cargar_datos import cargar_rutas, cargar_mapa
-from contar_datos import contar_coches_todos_tiempos
+from contar_datos import contar_coches_todos_tiempos, rb_usage 
+
 
 #Voy a cargar tanto las rutas como el mapa
 rutas = cargar_rutas()
 mapa = cargar_mapa()
+
+N_RB = 222
+n_max_global = max(road['max_toded'] for road in mapa['links'])
+rbs_por_coche = N_RB // n_max_global
 
 #Aquío calculo el tiempo maximo de la simulacion para definir el eje de tiempo, lo hago igual que en tiempomaximo.py
 T_max = max(car["times"][-1][1] for car_id, car in rutas.items() if car_id.isdigit()) 
@@ -41,10 +46,10 @@ for tiempo in sorted(resultados.keys()):
         inicio = calle[0]
         fin = calle[1]
         print(f"  Calle {inicio} → {fin}: {num_coches} coches")
-
+        
 # Versión fija
 from riv_config_fijo import calcular_riv_simulacion
-riv_simulacion = calcular_riv_simulacion(resultados, N_BWP=222, rbs_por_coche=24)
+riv_simulacion = calcular_riv_simulacion(resultados, N_BWP=N_RB, rbs_por_coche=24)
 
 # Versión variable
 from riv_config_variable import calcular_riv_simulacion
